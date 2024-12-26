@@ -36,18 +36,18 @@
             "description": "URL to a web page that contains an explanation of the tariff information in human readable form.",
             "format": "uri"
         },
-        "energy_mix": {
+        "green_energy_mix": {
             "type": "boolean",
             "description": "If energy source comes from green production sources"
         },
         "token_type": {
             "anyOf": [
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "App"
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "RFID Card"
                 }
             ],
@@ -56,23 +56,23 @@
         "voltage": {
             "anyOf": [
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Very High Voltage (VHV/MTA)"
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "High Voltage (HV/AT)"
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Medium Voltage (MV/MT)"
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Special Low Voltage (SLV/BTE)"
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Normal Low Voltage (NLV/BT)"
                 }
             ],
@@ -81,15 +81,15 @@
         "hourly_period": {
             "oneOf": [
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Simple: 1 single period during the day, with no energy price differentiation."
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Bi-hourly: 2 periods during the day (off-peak and peak hours)"
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Tri-hourly: 3 periods during the day (peak hours, mid-peak hours, and off-peak hours)"
                 }
             ],
@@ -98,15 +98,15 @@
         "cycle": {
             "oneOf": [
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Daily cycle: the hourly periods are the same every day of the year."
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Weekly cycle: the hourly periods differ between weekdays and weekends."
                 },
                 {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Simple: 1 single period during the day, with no energy price differentiation."
                 }
             ],
