@@ -14,8 +14,16 @@
         },
         "id": {
             "type": "string",
-            "description": "Uniquely identifies the tariff within the CEME’s platform (and suboperator platforms).",
+            "description": "Uniquely identifies the tariff within the CEMEs platform.",
             "maxLength": 36
+        },
+        "ceme_name": {
+            "type": "string",
+            "description": "The commercial name of the CEME with whom a UVE establishes a contract."
+        },
+        "tariff_name": {
+            "type": "string",
+            "description": "The name of the CEMEs tariff plan."
         },
         "currency": {
             "type": "string",
@@ -23,39 +31,86 @@
             "maxLength": 3,
             "default": "EUR"
         },
-        "type": {
-            "type": "string",
-            "enum": [
-                "REGULAR",
-                "AD_HOC_PAYMENT",
-                "PROFILE_CHEAP",
-                "PROFILE_FAST",
-                "PROFILE_GREEN"
-            ]
-        },
-        "tariff_alt_text": {
-            "type": "array",
-            "description": "List of multi-language alternative tariff info texts.",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "language": {
-                        "type": "string",
-                        "description": "Language Code ISO 639-1.",
-                        "maxLength": 2
-                    },
-                    "text": {
-                        "type": "string",
-                        "description": "Text to be displayed to a end user. No markup, html etc. allowed.",
-                        "maxLength": 512
-                    }
-                }
-            }
-        },
         "tariff_alt_url": {
             "type": "string",
             "description": "URL to a web page that contains an explanation of the tariff information in human readable form.",
             "format": "uri"
+        },
+        "energy_mix": {
+            "type": "boolean",
+            "description": "If energy source comes from green production sources"
+        },
+        "token_type": {
+            "anyOf": [
+                {
+                    "type": "boolean",
+                    "description": "App"
+                },
+                {
+                    "type": "boolean",
+                    "description": "RFID Card"
+                }
+            ],
+            "description": "Token.type of the Token for which this authorization is."
+        },
+        "Voltage": {
+            "anyOf": [
+                {
+                    "type": "boolean",
+                    "description": "Very High Voltage (VHV/MTA)"
+                },
+                {
+                    "type": "boolean",
+                    "description": "High Voltage (HV/AT)"
+                },
+                {
+                    "type": "boolean",
+                    "description": "Medium Voltage (MV/MT)"
+                },
+                {
+                    "type": "boolean",
+                    "description": "Special Low Voltage (SLV/BTE)"
+                },
+                {
+                    "type": "boolean",
+                    "description": "Normal Low Voltage (NLV/BT)"
+                }
+            ],
+            "description": "Very High Voltage (VHV), High Voltage (HV), Medium Voltage (MV), Special Low Voltage (SLV) and Normal Low Voltage (NLV)"
+        },
+        "hourly_period": {
+            "oneOf": [
+                {
+                    "type": "boolean",
+                    "description": "Simple: 1 single period during the day, with no energy price differentiation."
+                },
+                {
+                    "type": "boolean",
+                    "description": "Bi-hourly: 2 periods during the day (off-peak and peak hours)"
+                },
+                {
+                    "type": "boolean",
+                    "description": "Tri-hourly: 3 periods during the day (peak hours, mid-peak hours, and off-peak hours)"
+                }
+            ],
+            "description": "Hourly Period"
+        },
+        "cycle": {
+            "oneOf": [
+                {
+                    "type": "boolean",
+                    "description": "Daily cycle: the hourly periods are the same every day of the year."
+                },
+                {
+                    "type": "boolean",
+                    "description": "Weekly cycle: the hourly periods differ between weekdays and weekends."
+                },
+                {
+                    "type": "boolean",
+                    "description": "Simple: 1 single period during the day, with no energy price differentiation."
+                }
+            ],
+            "description": "Cycle"
         },
         "elements": {
             "type": "array",
@@ -112,58 +167,6 @@
                 ]
             }
         },
-        "energy_mix": {
-            "type": "boolean",
-            "description": "If energy source comes from green production sources"
-        },
-        "token_type": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "description": "App"
-                },
-                {
-                    "type": "string",
-                    "description": "RFID Card"
-                }
-            ],
-            "description": "Token.type of the Token for which this authorization is."
-        },
-        "Voltage": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "description": "Very High Voltage (VHV/MTA)",
-                    "maxLength": 3,
-                    "default": "vhv"
-                },
-                {
-                    "type": "string",
-                    "description": "High Voltage (HV/AT)",
-                    "maxLength": 2,
-                    "default": "HV"
-                },
-                {
-                    "type": "string",
-                    "description": "Medium Voltage (MV/MT)",
-                    "maxLength": 2,
-                    "default": "MV"
-                },
-                {
-                    "type": "string",
-                    "description": "Special Low Voltage (SLV/BTE)",
-                    "maxLength": 3,
-                    "default": "SLV"
-                },
-                {
-                    "type": "string",
-                    "description": "Normal Low Voltage (NLV/BT)",
-                    "maxLength": 3,
-                    "default": "NLV"
-                }
-            ],
-            "description": "Very High Voltage (VHV), High Voltage (HV), Medium Voltage (MV), Special Low Voltage (SLV) and Normal Low Voltage (NLV)"
-        },
         "last_updated": {
             "type": "string",
             "description": "Timestamp when this Tariff was last updated (or created).",
@@ -173,10 +176,15 @@
     "required": [
         "party_id",
         "id",
+        "ceme_name",
+        "tariff_name",
         "currency",
-        "elements",
+        "tariff_alt_url",
         "token_type",
         "Voltage",
+        "hourly_period",
+        "cycle",
+        "elements",
         "last_updated"
     ]
 }
