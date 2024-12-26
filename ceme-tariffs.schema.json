@@ -3,27 +3,27 @@
     "properties": {
         "country_code": {
             "type": "string",
-            "description": "ISO-3166 alpha-2 country code of the CEME that owns this Tariff.",
+            "description": "ISO-3166 alpha-2 country code of the e-MSP/CEME that owns this Tariff.",
             "maxLength": 2,
             "default": "PT"
         },
         "party_id": {
             "type": "string",
-            "description": "ID of the CEME that 'owns' this Tariff (following the ISO-15118 standard).",
+            "description": "ID of the e-MSP/CEME that 'owns' this Tariff (following the ISO-15118 standard).",
             "maxLength": 3
         },
         "id": {
             "type": "string",
-            "description": "Uniquely identifies the tariff within the CEMEs platform.",
+            "description": "Uniquely identifies the tariff within the e-MSP/CEMEs platform.",
             "maxLength": 36
         },
-        "ceme_name": {
+        "emsp_name": {
             "type": "string",
-            "description": "The commercial name of the CEME with whom a UVE establishes a contract."
+            "description": "The commercial name of the e-MSP/CEME with whom a UVE establishes a contract."
         },
         "tariff_name": {
             "type": "string",
-            "description": "The name of the CEMEs tariff plan."
+            "description": "The name of the e-MSP/CEMEs tariff plan."
         },
         "currency": {
             "type": "string",
@@ -53,7 +53,7 @@
             ],
             "description": "Token.type of the Token for which this authorization is."
         },
-        "Voltage": {
+        "voltage": {
             "anyOf": [
                 {
                     "type": "boolean",
@@ -76,7 +76,7 @@
                     "description": "Normal Low Voltage (NLV/BT)"
                 }
             ],
-            "description": "Very High Voltage (VHV), High Voltage (HV), Medium Voltage (MV), Special Low Voltage (SLV) and Normal Low Voltage (NLV)"
+            "description": "Very High Voltage (VHV/MAT), High Voltage (HV/AT), Medium Voltage (MV/MT), Special Low Voltage (SLV/BTE) and Normal Low Voltage (NLV/BT)"
         },
         "hourly_period": {
             "oneOf": [
@@ -112,60 +112,46 @@
             ],
             "description": "Cycle"
         },
-        "elements": {
+        "energy_price": {
             "type": "array",
-            "description": "List of Tariff Elements.",
+            "description": "List of Tariff prices.",
             "items": {
                 "type": "object",
                 "properties": {
-                    "price_components": {
-                        "type": "array",
-                        "description": "List of price components that describe the pricing of a tariff.",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                },
-                                "price": {
-                                    "type": "number"
-                                },
-                                "vat": {
-                                    "type": "number"
-                                },
-                                "step_size": {
-                                    "type": "integer"
-                                }
-                            },
-                            "required": [
-                                "type",
-                                "price",
-                                "step_size"
-                            ]
-                        }
+                    "peak": {
+                        "type": "number",
+                        "description": "Peak"
                     },
-                    "restrictions": {
-                        "type": "object",
-                        "properties": {
-                            "start_time": {
-                                "type": "string"
-                            },
-                            "end_time": {
-                                "type": "string"
-                            },
-                            "day_of_week": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                    "mid_peak": {
+                        "type": "number",
+                        "description": "Mid-Peak"
+                    },
+                    "off_peak": {
+                        "type": "number",
+                        "description": "Off-Peak"
                     }
                 },
                 "required": [
-                    "price_components"
+                    "peak",
+                    "mid_peak",
+                    "off_peak"
                 ]
             }
+        },
+        "egme_tariff": {
+            "type": "number",
+            "description": "The Regulation for Electric Mobility foresees the billing by the Electric Mobility Network Managing Entity of a tariff (“EGME tariff”) which covers the costs of its regulated activity, applied to EMSPs, CPOs and DPCs. These costs are verified by ERSE in the process of setting this tariff annually. The EGME tariff does not have a direct application to the Users, given that these tariffs are applicable to market participants, although they represent costs for the EMSP and CPO, they may adjust the tariffs that they practice.",
+            "default": "0,1572"
+        },
+        "public_funding": {
+            "type": "number",
+            "description": "State Support for Electric Mobility: The support translates into a discount applicable to the cost of each charge registered in the national electric mobility network and assumes the value of € 0,1684 for each charge.",
+            "default": "-0,1684"
+        },
+        "iec": {
+            "type": "number",
+            "description": "The Special Tax on Electricity Consumption (IEC) is composed by a variable term applied to electricity consumption, with the rate being, in Mainland Portugal, of 0,001 € by kWh, under the terms of Decree no. 320-D/2011, from 30 of December.",
+            "default": "0,001"
         },
         "last_updated": {
             "type": "string",
@@ -176,15 +162,18 @@
     "required": [
         "party_id",
         "id",
-        "ceme_name",
+        "emsp_name",
         "tariff_name",
         "currency",
         "tariff_alt_url",
         "token_type",
-        "Voltage",
+        "voltage",
         "hourly_period",
         "cycle",
-        "elements",
+        "energy_price",
+        "egme_tariff",
+        "public_funding",
+        "iec",
         "last_updated"
     ]
 }
