@@ -1,2 +1,9 @@
-# CEME-tariffs
+# CEME tariffs
 A OCPI v2.x based JSON schema of Portuguese CEME tariffs
+
+This schema is based on the [OCPI v2.2.1 specification](https://github.com/ocpi/ocpi/releases/tag/2.2.1) and is intended to be used in the context of the Portuguese CEME (Electric Mobility Charging Operators) market.  
+The data provided here originated from https://ceme.ocarroeletrico.com/
+
+This repository provides:
+* the JSON Schema for the OCPI `tariffs` module, extended with the CEME specific fields
+* JSON file with the CEME tarrifs
