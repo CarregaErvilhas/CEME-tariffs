@@ -3,18 +3,18 @@
     "properties": {
         "country_code": {
             "type": "string",
-            "description": "ISO-3166 alpha-2 country code of the CPO that owns this Tariff.",
+            "description": "ISO-3166 alpha-2 country code of the CEME that owns this Tariff.",
             "maxLength": 2,
             "default": "PT"
         },
         "party_id": {
             "type": "string",
-            "description": "ID of the CPO that 'owns' this Tariff (following the ISO-15118 standard).",
+            "description": "ID of the CEME that 'owns' this Tariff (following the ISO-15118 standard).",
             "maxLength": 3
         },
         "id": {
             "type": "string",
-            "description": "Uniquely identifies the tariff within the CPO’s platform (and suboperator platforms).",
+            "description": "Uniquely identifies the tariff within the CEME’s platform (and suboperator platforms).",
             "maxLength": 36
         },
         "currency": {
