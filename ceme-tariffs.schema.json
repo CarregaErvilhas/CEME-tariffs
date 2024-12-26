@@ -35,35 +35,37 @@
         },
         "tariff_alt_text": {
             "type": "array",
+            "description": "List of multi-language alternative tariff info texts.",
             "items": {
                 "type": "object",
                 "properties": {
                     "language": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Language Code ISO 639-1.",
+                        "maxLength": 2
                     },
                     "text": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Text to be displayed to a end user. No markup, html etc. allowed.",
+                        "maxLength": 512
                     }
                 }
             }
         },
         "tariff_alt_url": {
             "type": "string",
+            "description": "URL to a web page that contains an explanation of the tariff information in human readable form.",
             "format": "uri"
-        },
-        "min_price": {
-            "type": "number"
-        },
-        "max_price": {
-            "type": "number"
         },
         "elements": {
             "type": "array",
+            "description": "List of Tariff Elements.",
             "items": {
                 "type": "object",
                 "properties": {
                     "price_components": {
                         "type": "array",
+                        "description": "List of price components that describe the pricing of a tariff.",
                         "items": {
                             "type": "object",
                             "properties": {
@@ -110,17 +112,71 @@
                 ]
             }
         },
+        "energy_mix": {
+            "type": "boolean",
+            "description": "If energy source comes from green production sources"
+        },
+        "token_type": {
+            "anyOf": [
+                {
+                    "type": "string",
+                    "description": "App"
+                },
+                {
+                    "type": "string",
+                    "description": "RFID Card"
+                }
+            ],
+            "description": "Token.type of the Token for which this authorization is."
+        },
+        "Voltage": {
+            "anyOf": [
+                {
+                    "type": "string",
+                    "description": "Very High Voltage (VHV/MTA)",
+                    "maxLength": 3,
+                    "default": "vhv"
+                },
+                {
+                    "type": "string",
+                    "description": "High Voltage (HV/AT)",
+                    "maxLength": 2,
+                    "default": "HV"
+                },
+                {
+                    "type": "string",
+                    "description": "Medium Voltage (MV/MT)",
+                    "maxLength": 2,
+                    "default": "MV"
+                },
+                {
+                    "type": "string",
+                    "description": "Special Low Voltage (SLV/BTE)",
+                    "maxLength": 3,
+                    "default": "SLV"
+                },
+                {
+                    "type": "string",
+                    "description": "Normal Low Voltage (NLV/BT)",
+                    "maxLength": 3,
+                    "default": "NLV"
+                }
+            ],
+            "description": "Very High Voltage (VHV), High Voltage (HV), Medium Voltage (MV), Special Low Voltage (SLV) and Normal Low Voltage (NLV)"
+        },
         "last_updated": {
             "type": "string",
+            "description": "Timestamp when this Tariff was last updated (or created).",
             "format": "date-time"
         }
     },
     "required": [
-        "country_code",
         "party_id",
         "id",
         "currency",
         "elements",
+        "token_type",
+        "Voltage",
         "last_updated"
     ]
 }
